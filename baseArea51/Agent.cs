@@ -5,7 +5,7 @@ using Project_demo_Elevator_thread.BarClasses;
 namespace Project_demo_Elevator_thread.baseArea51
 {
     enum AgentLevel { Confidential, Secret, TopSecret };
-    enum FloorType { G, S, T1, T2, Stairs };
+    enum FloorType { G, S, T1, T2 };
     public class Agent
     {
         
