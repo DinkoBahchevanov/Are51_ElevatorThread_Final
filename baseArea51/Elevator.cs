@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
-using Project_demo_Elevator_thread.BarClasses;
 
 namespace Project_demo_Elevator_thread.baseArea51
 {
