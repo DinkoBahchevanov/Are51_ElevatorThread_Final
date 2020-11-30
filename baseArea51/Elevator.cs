@@ -6,19 +6,14 @@ namespace Project_demo_Elevator_thread.baseArea51
 {
    public class Elevator
     {
-        List<Floor> _floors;
-       
-       const int maxPeople = 1;
-
-       public int currentFloor { get; set; }
+        public int currentFloor { get; set; }
        
        Semaphore semaphore;
 
        List<Agent> _agents;
 
-       public Elevator(List<Floor> floors)
+       public Elevator()
        {
-           this._floors = floors;
            semaphore = new Semaphore(1, 10);
            _agents = new List<Agent>();
        }

@@ -6,21 +6,15 @@ using Project_demo_Elevator_thread.BarClasses;
 
 namespace Project_demo_Elevator_thread.baseArea51
 {
+    
     public class Program
     {
-        static  List<Floor> floors = new List<Floor> {{new Floor(FloorType.G, 1)}
-            ,{new Floor(FloorType.S, 2)}, new Floor(FloorType.T1, 3), new Floor(FloorType.T2, 4)};
-
-        static Elevator elevator = new Elevator(floors);
+        
+        static Elevator elevator = new Elevator();
         static void Main(string[] args)
         {
-           
-        //    var agents = 
-          //      Enumerable.Range(1, 10)
-          //          .Select(i => new Agent { name = i.ToString(), level = generateLevel(), Elevator = elevator })
-         //           .ToList();
 
-         List<Agent> agents = new List<Agent>();
+            List<Agent> agents = new List<Agent>();
             for (int i = 1; i <= 10; i++)
             {
                 agents.Add(new Agent {name = i.ToString(), level = generateLevel(), Elevator = elevator});
@@ -39,8 +33,11 @@ namespace Project_demo_Elevator_thread.baseArea51
             Console.ReadLine();
         }
 
+       
         public static Enum generateLevel()
         {
+            //here we generate levels of Agents(confidential, secret, top-secret)
+            
             Random random = new Random();
 
             Enum level = null;
@@ -62,6 +59,5 @@ namespace Project_demo_Elevator_thread.baseArea51
 
             return level;
         }
-        
     }
-    }
+}
