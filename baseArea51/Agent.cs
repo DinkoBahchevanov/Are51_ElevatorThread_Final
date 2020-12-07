@@ -11,11 +11,11 @@ namespace Project_demo_Elevator_thread.baseArea51
         public String name { get; set; }
         public Enum level { get; set; }
 
-        private int currentFloor = 0;
+        public int currentFloor = 0;
         public Elevator Elevator { get; set; }
         
         
-        ManualResetEvent eventOutOfElevator = new ManualResetEvent(false);
+        public ManualResetEvent eventOutOfElevator = new ManualResetEvent(false);
 
         private void EnterElevatorEvent ()
         {
@@ -49,16 +49,19 @@ namespace Project_demo_Elevator_thread.baseArea51
             }
         }
 
+        //tova za sega ne se izpolzva
         private void EnteringElevator()
         {
             Enum chosenFloor = GetRandomFloor(); 
             Console.WriteLine(name + " Waits for his order");
+            
             Elevator.PressButtonAndStartElevator(this);
             Console.WriteLine(name + " pressed the button for the elevator");
             int chosenFloorNum = 0;
             
             while (true)
             {
+                
                 chosenFloor = GetRandomFloor();
                 if (chosenFloor.Equals(FloorType.G))
                 {
@@ -80,49 +83,13 @@ namespace Project_demo_Elevator_thread.baseArea51
                         case FloorType.T1: 
                         case FloorType.T2:
                             // simulating the waiting of the elevator to arrive
-                            if (currentFloor < Elevator.currentFloor || currentFloor > Elevator.currentFloor)
+                            bool isOutOfElev = Elevator.move(this, chosenFloor, chosenFloorNum);
+                            if (isOutOfElev == false)
                             {
-                                Console.WriteLine("Waiting for elevator to arrive");
-                                for (int i = 0; i < Math.Abs(Elevator.currentFloor - currentFloor); i++)
-                                {
-                                    Console.WriteLine("...");
-                                    Thread.Sleep(1000);
-                                }
+                              continue;  
                             }
-                            Console.WriteLine("Moving Agent(" + name + ") to " + chosenFloorNum + " floor");
-                            Elevator.currentFloor = currentFloor;
-                            if (Elevator.currentFloor == chosenFloorNum)
-                            {
-                                Console.WriteLine("Agent chose current floor, choosing again...");
-                                Thread.Sleep(200);
-                                continue;
-                            }
-                            //moving the agent
-                            for (int i = 0; i < Math.Abs(chosenFloorNum - Elevator.currentFloor); i++)
-                            {
-                                Console.WriteLine("...");
-                                Thread.Sleep(1000);
-                            }
-
-                            Elevator.currentFloor = chosenFloorNum;
-                            currentFloor = chosenFloorNum;
-                            if ((this.level.Equals(AgentLevel.Confidential) && !chosenFloor.Equals(FloorType.G)))
-                            {
-                                Console.WriteLine("Agent can't access that floor...");
-                                continue;
-                            } else if (this.level .Equals( AgentLevel.Secret) && ((chosenFloor.Equals((Enum) FloorType.T1) 
-                                || chosenFloor.Equals (FloorType.T2))))
-                            {
-                                Console.WriteLine("Agent can't access that floor...");
-                                continue;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Agent(" + name + ") leaves the elevator on " + chosenFloor + " floor with Agent(" + level + ") level");
-                                Elevator.Leave(this);
-                                return;
-
-                            }
+                            eventOutOfElevator.Set();
+                            return;
                             break;
                         default:
                             throw new ArgumentException(chosenFloor + " is not supported!");
@@ -130,7 +97,7 @@ namespace Project_demo_Elevator_thread.baseArea51
             }
         }
 
-        private Enum GetRandomFloor()
+        public Enum GetRandomFloor()
         {
             Random random = new Random();
             Enum floorType = null;
