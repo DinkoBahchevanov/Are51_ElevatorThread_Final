@@ -87,19 +87,18 @@ namespace Project_demo_Elevator_thread.baseArea51
            {
                chosenFloor = agent.GetRandomFloor();
                chosenFloorNum = Convert.ToInt32(chosenFloor) + 1;
-               LiftingAgent(agent, chosenFloor, chosenFloorNum);
+               Thread thread = new Thread(() => LiftingAgent(agent,chosenFloor, chosenFloorNum));
+               thread.Start();
            }
        }
 
-       public bool move(Agent agent, Enum ChoserFloor, int chosenFloorNum)
+       public void move(Agent agent, Enum ChosenFloor, int chosenFloorNum)
        {
-           Thread thread = new Thread(() => LiftingAgent(agent,ChoserFloor, chosenFloorNum));
+           Thread thread = new Thread(() => LiftingAgent(agent,ChosenFloor, chosenFloorNum));
            thread.Start();
            thread.Join();
 
            //LiftingAgent(agent, ChoserFloor, chosenFloorNum);
-           
-           return leftElevator;
        }
     }
 }

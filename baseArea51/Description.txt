@@ -1,0 +1,44 @@
+﻿-----------------------------------------
+A brief explanation of the implementation
+-----------------------------------------
+
+-----------
+Agent class
+-----------
+First, we do create agents in *Program.cs* file and generate their 
+levels with *generateLevel()* method.
+
+After that, we call for-each agent his method *StartTrip()* where we do create
+a thread for-each agent and start it. In this way, we do start the *choosingAction()* method
+where our agent chooses a random generated floor with 'GetRandomFloor()' method.
+
+Then we go to *EnteringElevator()* method, where we go through the semaphore by *PressButtonAndStartElevator(agent)*
+which is in the *Elevator.cs* file. So we get the chosenFloor as a number and we call the 
+*move(agent, ChosenFloorAsEnum, ChosenFloorAsNumber)* method which is in the *Elevator.cs* file.
+
+--------------
+Elevator class
+--------------
+So we enter the *move* method in the *Elevator.cs* file where we do create a thread
+for the elevator and start it with *LiftingAgent(agent,ChosenFloorAsEnum, chosenFloorAsNumber)* method.
+
+Then we go to the *LiftingAgent(agent,ChosenFloorAsEnum, chosenFloorAsNumber)* method.
+*We have a bool leftElevator which will help us further in the method (default value is true)*
+
+First we do simulate the waiting of the elevator(if there is a difference between
+agent.currentFloor and elevator.currentFloor, for every floor passed there is a 1 second delay).
+
+Then we check if the chosenFloor of the agents is the same with the currentFloor
+of the Elevator - if it is, we do change leftElevator to false. 
+If it is not the same, we continue with simulating the moving of the agent to the chosenFloor(again 1 second delay).
+
+After that, we change the *elevator.currentFloor* and *agent.currentFloor* to be equal to the *agent.chosenFloor*.
+Now we check if the level of the agent is compatible with the level of the floor.
+
+If it's not we do change the leftElevator to false.
+
+If it is compatible, we do invoke *Leave* method and we go through the semaphor again, releasing
+the agent and ending the thread of the elevator and the thread of the agent.
+
+Lastly, we check if leftElevator is false. If it is false it means the agent didn't leave the
+elevator and he needs to choose a floor again - so we do create new thread and repeat the same method. 

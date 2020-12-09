@@ -14,7 +14,7 @@ namespace Project_demo_Elevator_thread.baseArea51
         {
 
             List<Agent> agents = new List<Agent>();
-            for (int i = 1; i <=10; i++)
+            for (int i = 1; i <= 10; i++)
             {
                 agents.Add(new Agent {name = i.ToString(), level = generateLevel(), Elevator = elevator});
             }
@@ -24,13 +24,12 @@ namespace Project_demo_Elevator_thread.baseArea51
                 agent.StartTrip();
             }
 
-            while (agents.Any (a => !a.OutOfArea))
+            while (agents.Any (a => !a.OutOfArea || !a.Elevator.leftElevator))
             {
 
             }
-            
-            Console.WriteLine("End of the journey");
-            Console.WriteLine("Press ENTER to end the program");
+
+            Console.WriteLine("End");
             Console.ReadLine();
         }
 

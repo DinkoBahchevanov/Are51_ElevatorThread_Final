@@ -44,6 +44,7 @@ namespace Project_demo_Elevator_thread.baseArea51
                         EnteringElevator();
                         break;
                     default:
+                        //impossible for our program
                         throw new ArgumentException(chosenAction + " action is not supported!");
                 }
             }
@@ -83,15 +84,11 @@ namespace Project_demo_Elevator_thread.baseArea51
                         case FloorType.T1: 
                         case FloorType.T2:
                             // simulating the waiting of the elevator to arrive
-                            bool isOutOfElev = Elevator.move(this, chosenFloor, chosenFloorNum);
-                            if (isOutOfElev == false)
-                            {
-                              continue;  
-                            }
+                            Elevator.move(this, chosenFloor, chosenFloorNum);
                             eventOutOfElevator.Set();
                             return;
-                            break;
                         default:
+                            //impossible for our program
                             throw new ArgumentException(chosenFloor + " is not supported!");
                     }
             }
