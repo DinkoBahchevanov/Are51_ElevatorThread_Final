@@ -81,6 +81,7 @@ namespace Project_demo_Elevator_thread.baseArea51
            {
                Console.WriteLine("Agent(" + agent.name + ") leaves the elevator on " + chosenFloor + " floor with Agent(" + agent.level + ") level");
                Leave(agent);
+               return;
            }
 
            if (leftElevator == false)

@@ -29,7 +29,8 @@ namespace Project_demo_Elevator_thread.baseArea51
 
             }
 
-            Console.WriteLine("End");
+            Console.WriteLine("End of the journey");
+            Console.WriteLine("Press Enter to End the program");
             Console.ReadLine();
         }
 
