@@ -97,8 +97,6 @@ namespace Project_demo_Elevator_thread.baseArea51
            Thread thread = new Thread(() => LiftingAgent(agent,ChosenFloor, chosenFloorNum));
            thread.Start();
            thread.Join();
-
-           //LiftingAgent(agent, ChoserFloor, chosenFloorNum);
        }
     }
 }

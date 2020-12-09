@@ -49,8 +49,6 @@ namespace Project_demo_Elevator_thread.baseArea51
                 }
             }
         }
-
-        //tova za sega ne se izpolzva
         private void EnteringElevator()
         {
             Enum chosenFloor = GetRandomFloor(); 
@@ -83,7 +81,6 @@ namespace Project_demo_Elevator_thread.baseArea51
                         case FloorType.S: 
                         case FloorType.T1: 
                         case FloorType.T2:
-                            // simulating the waiting of the elevator to arrive
                             Elevator.move(this, chosenFloor, chosenFloorNum);
                             eventOutOfElevator.Set();
                             return;
